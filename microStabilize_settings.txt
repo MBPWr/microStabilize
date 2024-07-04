@@ -1,0 +1,10 @@
+Threshold = 0
+Window_frame_size = (0, 0, 900, 900)
+Frame_brightness = 255
+Frame_contrast = 127
+Laser_X = 320
+Laser_Y = 240
+Actuator_COM_port = COM7
+apt.Motor_x = 27600840
+apt.Motor_y = 27600837
+apt.Motor_z = 27260851
