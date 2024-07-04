@@ -25,7 +25,7 @@ pip install PySimpleGUI==4.60.5 opencv-python==4.9.0.80 thorlabs_apt==0.2 NumPy=
 ```
 
 Calibration:
-- If using stepper motors from Thorlabs, in microStabilize_settings.txt update serial numbers of motors.
+- If using servo motors from Thorlabs, in microStabilize_settings.txt update serial numbers of motors.
 
 Run software using:
 - microStabilize.py
