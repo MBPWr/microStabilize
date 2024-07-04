@@ -7,7 +7,7 @@ The microStabilize software is tested with two types of actuators from Thorlabs:
 
 # Reqirements, calibration, and installation
 microStabilize requires:
--[python](https://www.python.org/downloads/) >= 3.10
+- [python](https://www.python.org/downloads/) >= 3.10
 
 The following python packages have to be installed:
 - PySimpleGUI (4.60.5)
