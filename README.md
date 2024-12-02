@@ -1,4 +1,4 @@
-# microStabilaze - GUI based software for in-plane microstructure stabilization in optical microscopy via normalized correlation coefficient matching method
+# microStabilize - GUI based software for in-plane microstructure stabilization in optical microscopy via normalized correlation coefficient matching method
 - Author: Marek Mikulicz (email: marek.mikulicz@pwr.edu.pl)
 - Coding language: Python 
 
