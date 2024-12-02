@@ -149,6 +149,11 @@ def save_differences(x_diff, y_diff, filename):
     with open(filename, 'a') as file:
         file.write(data)
 
+def cv2_to_bytes(cv2_image):
+    """Convert a CV2 image to bytes for PySimpleGUI's Image element."""
+    _, encoded_image = cv2.imencode('.png', cv2_image)
+    return encoded_image.tobytes()
+
 def layout_frame():
     return [sg.Frame(layout=[[sg.Button('Change frame', size=(14, 1))],
                              [sg.Button('Background', size=(10, 1)),sg.Button('✓', size=(2, 1), visible = False),  sg.Checkbox('', size=(2, 1), default=False, key="background_checkbox", visible = True),
@@ -179,11 +184,12 @@ def layout_stabilize():
 
 def main():
     #['File', ['New', 'Open', 'Save', 'Exit', ]]
-    menu_def = [['Settings', ['Open', 'Save'], ],  ['Info', ['Joystick', 'About']], ]
+    menu_def = [['Settings', ['Open', 'Save'], ],  ['Info', ['Joystick','Load image', 'About']], ]
     layout = [  [sg.Menu(menu_def),
                 sg.Column([layout_frame()]),
                 sg.Column([layout_stabilize()]),
-                sg.Column([layout_actuators()])]]
+                sg.Column([layout_actuators()])],
+                [sg.Image(key="-IMAGE_DISPLAY-")]]
                 #[sg.Button('Exit')]]
 
     # Create the Window
@@ -240,6 +246,45 @@ def main():
         if event == 'Open':
             file_path = "microStabilize_settings.txt"
             subprocess.Popen(["notepad.exe", file_path])
+
+        if event == 'Load image':
+            try:
+                # Ask the user to select an image file
+                image_path = sg.popup_get_file("Select Image", file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.bmp"),))
+                if image_path:
+                    image = cv2.imread(image_path)
+                    if image is not None:
+                        # Convert the image to bytes for PySimpleGUI
+                        image_bytes = cv2_to_bytes(image)
+                        window["-IMAGE_DISPLAY-"].update(data=image_bytes)
+                # Ask the user to select a template file
+                template_path = sg.popup_get_file("Select Template", file_types=(("Image Files", "*.png;*.jpg;*.jpeg;*.bmp"),))
+                if template_path:
+                    template = cv2.imread(template_path)
+                    if template is not None:
+                        sg.popup("Template loaded successfully!")
+
+                if image is not None and template is not None:
+                    # Perform template matching
+                    result = cv2.matchTemplate(image, template, cv2.TM_CCOEFF_NORMED)
+                    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+
+                    # Draw rectangle on the image at the match location
+                    h, w, _ = template.shape
+                    top_left = max_loc
+                    bottom_right = (top_left[0] + w, top_left[1] + h)
+                    image_with_rectangle = image.copy()
+                    cv2.rectangle(image_with_rectangle, top_left, bottom_right, (0, 255, 0), 2)
+
+                    # Update display with the result
+                    image_bytes = cv2_to_bytes(image_with_rectangle)
+                    window["-IMAGE_DISPLAY-"].update(data=image_bytes)
+                    print("Template top_left corner location is: ", max_loc, "Confidence level is: " + str(int(round(max_val, 2)*100))+"%")
+                else:
+                    sg.popup("Please load both image and template before finding the template.")
+            except Exception as e:
+                print(f"Error. {e}")
+
             
 
         if event == 'Save':
