@@ -1,5 +1,5 @@
 # microStabilaze - GUI based software for in-plane microstructure stabilization in optical microscopy via normalized correlation coefficient matching method
-- Author: Marek Burakowski (email: marek.burakowski@pwr.edu.pl)
+- Author: Marek Mikulicz (email: marek.mikulicz@pwr.edu.pl)
 - Coding language: Python 
 
 # Hardware compatibility
