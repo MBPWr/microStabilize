@@ -1,6 +1,8 @@
 # microStabilize - GUI based software for in-plane microstructure stabilization in optical microscopy via normalized correlation coefficient matching method
 - Author: Marek Mikulicz (email: marek.mikulicz@pwr.edu.pl)
-- Coding language: Python 
+- This software was published in the SoftwareX journal. If you publish the results obtained using the microStabilize software, please cite the following:
+- M. G. Mikulicz, microStabilize: In-plane microstructure stabilization in optical microscopy via normalized correlation coefficient matching method, SoftwareX, 2025, vol. 29, 102065, 1-6,101679, https://doi.org/10.1016/j.softx.2025.102065
+- Coding language: Python
 
 # Hardware compatibility
 The microStabilize software is tested with two types of actuators from Thorlabs: Z925B Motorized Actuator controlled by KDC101 and 3-Axis NanoMax™ Flexure Stage controlled by MDT693B - 3-Channel, Open-Loop Piezo Controller. Camera (WAT-902B Watec) is connected to PC via S-Video to USB 2.0 adapter.
